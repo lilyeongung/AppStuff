@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = CoinsViewModel()  // fetch info from API and supply View with data
+    @StateObject var viewModel = CoinsViewModel()  
     
     var body: some View {
-        VStack {
-            Text("\(viewModel.coin): \(viewModel.price) \(viewModel.currency)")
+        List {
+            ForEach(viewModel.coins) { coin in
+                HStack(spacing: 12) {
+                    Text("\(coin.marketCapRank)")
+                        .foregroundColor(.gray)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(coin.name)
+                            .fontWeight(.semibold)
+                        
+                        Text(coin.symbol.uppercased())
+                    }
+                }
+                .font(.footnote)
+            }
         }
-        .padding()
     }
 }
 
